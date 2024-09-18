@@ -210,12 +210,12 @@ for row in authors.index:
     elif smushed2 in names:
         ansm2 += 1
         authors['Name'][row] = smushed2
-print ansm1, ansm2
+print(ansm1, ansm2
 ####################################################################################
 # GW Bush becomes G W Bush
 ####################################################################################
 """ In this block, any name that was initially of the form FM Last or Fm Last is 
-considered for splitting into F M Last.  But I want to avoid splitting common first
+considered for splitting into F M Last.  But I want to avoid splitting common first)
 names, like Ed, Jo, or In (korean).  The best way I found to do this was to count 
 total occurances of these strings as first names in the author file, and only split
 up the less common 2 word first names.  The logic got a little complet below to try
@@ -271,11 +271,11 @@ for row in authors.index:
         if authors['Name'][row].__len__() > 2:
 	    authors['Name'][row] = chopped
             ch2 += 1
-print sm0, ch1, ch2
+print(sm0, ch1, ch2
 ###################################################################################
 ###################### Asian-Name Names ############################################
 """ This is just like the first "Asian Names" block, but here I look at cases
-where the 2nd portion of the name is a middle initial only.  """
+where the 2nd portion of the name is a middle initial only.  """)
 authors['Last'] = authors['Name'].str.split().str[-1]
 authors['First'] = authors['Name'].str.split().str[0]    # First name only
 ansm3, ansm4 = 0, 0
@@ -291,11 +291,11 @@ for row in authors.index:
     smushed2 = authors['First'][row] + " " + authors['Name'][row].split()[1] + authors['Last'][row]
     if smushed in author_set and dict_len(author_set, authors['Name'][row]) <= dict_len(author_set, smushed):
         ansm3 += 1
-        print smushed
-        authors['Name'][row] = smushed
+        print(smushed
+        authors['Name'][row] = smushed)
     elif smushed2 in author_set and dict_len(author_set, authors['Name'][row]) <= dict_len(author_set, smushed2):
         ansm4 += 1
-        print smushed2
+        print(smushed2
         authors['Name'][row] = smushed2
 print ansm3, ansm4
 ###################################################################################
@@ -308,7 +308,7 @@ was created by thinking through what these frequencies would look like for mista
 and non-mistakes, then eyeballing results to refine it. Co-affiliation words were
 also used in the metric.  The end result was to switch most proposed reversed names
 but not all.  I used similar logic for several other tests in the remainder of this
-program"""
+program""")
 authors['Last'] = authors['Name'].str.split().str[-1]
 authors['First'] = authors['Name'].str.split().str[0]    # First name only
 b1,b2=0,0 # count the number of reverals that are accepted, refused by the metric
@@ -341,14 +341,14 @@ for row in authors.index:
 	    if row in affs.index:
 		for row2 in authors.index[authors['Name']==authors['Rev'][row]]:
                     if row2 in affs.index and util.check_affs(affs['Affiliation'][row], affs['Affiliation'][row2]):
-			print "XXXXXXXX"
+			print("XXXXXXXX"
                         test = test / 100
-	    # Don't reverse the name
+	    # Don't reverse the name)
 	    if (test > 50):
 		b2 += dict_len(author_set, authors['Name'][row])
-	        print authors['Name'][row], "XXXXXXXXXXXXXXXXXX TOO RISKY", b1, b2, test
+	        print(authors['Name'][row], "XXXXXXXXXXXXXXXXXX TOO RISKY", b1, b2, test
 	    # Reverse the name
-	    else:
+	    else:)
 		b1 += dict_len(author_set, authors['Name'][row])
 		auth_idx = author_set.pop(authors['Name'][row])
 		author_set[authors['Rev'][row]] = auth_idx + author_set[authors['Rev'][row]]
@@ -357,7 +357,7 @@ for row in authors.index:
                 authors['First'][auth_idx] = last
                 authors['Last'][auth_idx] = first
                 authors['Name'][auth_idx] = authors['Rev'][row]
-	        print authors['Name'][row]
+	        print(authors['Name'][row])
 authors = authors.drop(['Rev'], axis=1)
 ###################################################################################
 # Strip out the da from Portugese names
@@ -400,19 +400,19 @@ for row in authors.index:
 	    if row in affs.index:
 		for row2 in authors.index[authors['Name']==authors['NewN'][row]]:
                     if row2 in affs.index and util.check_affs(affs['Affiliation'][row], affs['Affiliation'][row2]):
-			print "XXXXXXXXXX"
-                        test = test / 100
+			print("XXXXXXXXXX"
+                        test = test / 100)
             print int(test), "\t", int(num_name), int(new_name), "|", int(num_first), int(new_first), "|", int(num_last), "|", int(num_fl), "\t\t",
             if test > 202:
                 r2 += 1
-                print authors['Name'][row], "XXXXXXXXXXXXXXXXXX TOO RISKY", r1, r2, test
+                print(authors['Name'][row], "XXXXXXXXXXXXXXXXXX TOO RISKY", r1, r2, test
             else:
-                r1 += 1
+                r1 += 1)
                 dict_move(author_set, authors['Name'][row], authors['NewN'][row], row)
                 dict_move(author_first_set, authors['Firsts'][row], authors['NewFs'][row], row)
                 authors['Firsts'][row] = authors['NewFs'][row]
                 authors['Name'][row] = authors['NewN'][row]
-                print authors['Name'][row]
+                print(authors['Name'][row])
 authors = authors.drop(['NewFs'], axis=1)
 authors = authors.drop(['NewN'], axis=1)
 authors = authors.drop(['FL'], axis=1)
@@ -444,45 +444,43 @@ for row in authors.index:
 	    if row in affs.index:
 		for row2 in authors.index[authors['Name']==authors['Name'][row][:-1]]:
                     if row2 in affs.index and util.check_affs(affs['Affiliation'][row], affs['Affiliation'][row2]):
-			print "XXXXXXXXXX"
-                        test = test / 100 
+			print("XXXXXXXXXX"
+                        test = test / 100 )
 	    print num_long_name, num_shrt_name, num_long_last, num_shrt_last, num_firsts, "\t", int(test), "\t", authors['Name'][row],
             # a, b, c, x, y, and z seem to be extremely common end name bad characters
  	    if authors['Name'][row][:-1] in ['a','b','c','x','y','z','q','j']:
  		test = test / 2
 	    if (test > 100):
                 c2 += dict_len(author_set, authors['Name'][row])
-	        print "XXXXXXXXXXXXXXXXXX TOO RISKY", c0, c1, c2
-	    else:
+	        print("XXXXXXXXXXXXXXXXXX TOO RISKY", c0, c1, c2
+	    else:)
                 c0 += dict_len(author_set, authors['Name'][row])
                 if author_set.__contains__(authors['Name'][row]):
                     auth_idx = author_set.pop(authors['Name'][row])
                     author_set[authors['Name'][row][:-1]] = auth_idx + author_set[authors['Name'][row][:-1]]
                     authors['Name'][auth_idx] = authors['Name'][row][:-1]
-	        print 
-	else:
+	        print(else:)
 	    test = num_shrt_name * (1 / np.sqrt(name_ratio)) * np.sqrt(num_firsts) * num_shrt_last * (1 / np.sqrt(last_ratio))
 	    if row in affs.index:
 		for row2 in authors.index[authors['Name']==authors['Name'][row][:-1]]:
                     if row2 in affs.index and util.check_affs(affs['Affiliation'][row], affs['Affiliation'][row2]):
-			print "XXXXXXXXXX"
-                        test = test / 100
+			print("XXXXXXXXXX"
+                        test = test / 100)
 	    print num_long_name, num_shrt_name, num_long_last, num_shrt_last, num_firsts, "\t", int(test),  "\t", authors['Name'][row], "Flipped",
 	    if (test > 50):
                 c2 += dict_len(author_set, authors['Name'][row][:-1])
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY", c0, c1, c2
-            else:
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY", c0, c1, c2
+            else:)
                 c1 += dict_len(author_set, authors['Name'][row][:-1])
                 auth_idx = author_set.pop(authors['Name'][row][:-1])
                 author_set[authors['Name'][row]] = auth_idx + author_set[authors['Name'][row]]
                 authors['Name'][auth_idx] = authors['Name'][row]
-	        print 
-####################################################################################
+	        print(####################################################################################
 ###################### i/y at end
 ####################################################################################
 """ Refer back to backwards names, the logic of this block is very similar.  In this
 case we are looking for names ending in i or y and seeing if they should be replaced
-by the other letter"""
+by the other letter""")
 authors['Last'] = authors['Name'].str.split().str[-1]
 authors['Firsts'] = authors['Name'].str.split().str[:-1]
 authors['Firsts'] = authors['Firsts'].str.join('.')
@@ -506,10 +504,10 @@ for row in authors.index:
                 authors['Name'][row], authors['Name'][row][:-1] + "y",
             if test > 50:
                 yi2 += 1
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY", yi0, yi1, yi2
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY", yi0, yi1, yi2
             else:
                 print
-                yi0 += 1
+                yi0 += 1)
                 dict_move(author_set, authors['Name'][row], authors['Name'][row][:-1] + "y", row)
                 authors['Name'][row] = authors['Name'][row][:-1] + "y"
         else:
@@ -519,18 +517,17 @@ for row in authors.index:
                 authors['Name'][row], authors['Name'][row][:-1] + "y", "Flipped",
             if test > 50:
                 yi2 += 1
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY", yi0, yi1, yi2
-            else:
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY", yi0, yi1, yi2
+            else:)
                 yi1 += dict_len(author_set, authors['Name'][row][:-1] + "y")
                 cur_idx = author_set[authors['Name'][row][:-1] + "y"]
                 dict_move(author_set, authors['Name'][row][:-1] + "y", authors['Name'][row])
                 authors['Name'][cur_idx] = authors['Name'][row]
-                print
-####################################################################################
+                print(####################################################################################
 ###################### c/k at beginning 
 """ Refer back to backwards names, the logic of this block is very similar.  In this
 case we are looking for names beginning in c or k and seeing if they should be
-replaced by the other letter"""
+replaced by the other letter""")
 authors['Last'] = authors['Name'].str.split().str[-1]
 authors['Firsts'] = authors['Name'].str.split().str[:-1]
 authors['Firsts'] = authors['Firsts'].str.join('.')
@@ -554,10 +551,10 @@ for row in authors.index:
                 authors['Name'][row], "c" + authors['Name'][row][1:],
             if test > 150:
                 ck2 += 1
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY", ck0, ck1, ck2
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY", ck0, ck1, ck2
             else:
                 print
-                ck0 += 1
+                ck0 += 1)
                 dict_move(author_set, authors['Name'][row], "c" + authors['Name'][row][1:], row)
                 authors['Name'][row] = ("c" + authors['Name'][row][1:])
         else:
@@ -566,17 +563,16 @@ for row in authors.index:
                 authors['Name'][row], "c" + authors['Name'][row][1:], "Flipped",
             if test > 150:
                 ck2 += 1
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY", ck0, ck1, ck2
-            else:
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY", ck0, ck1, ck2
+            else:)
                 cur_idx = author_set[("c" + authors['Name'][row][1:])]
                 ck1 += len(cur_idx)
                 dict_move(author_set, ("c" + authors['Name'][row][1:]), authors['Name'][row])
                 authors['Name'][cur_idx] = authors['Name'][row]
-                print
-####################################################################################
+                print(####################################################################################
 ##################### "and" at end 
 """ Refer back to backwards names, the logic of this block is very similar.  In this
-case we are looking for names ending with a mistaken "and" """
+case we are looking for names ending with a mistaken "and" """)
 authors['Last'] = authors['Name'].str.split().str[-1]
 authors['Firsts'] = authors['Name'].str.split().str[:-1]
 authors['Firsts'] = authors['Firsts'].str.join('.')
@@ -600,10 +596,10 @@ for row in authors.index:
                 authors['Name'][row], authors['Name'][row][:-3],
             if test > 150:
                 and2 += 1
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY"
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY"
             else:
                 print
-                and0 += 1
+                and0 += 1)
                 dict_move(author_set, authors['Name'][row], authors['Name'][row][:-3], row)
 		authors['Name'][row] = (authors['Name'][row][:-3])
         else:
@@ -612,17 +608,16 @@ for row in authors.index:
 	    authors['Name'][row], authors['Name'][row][:-3], "Flipped",
             if test > 150:
                 and2 += 1
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY"
-            else:
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY"
+            else:)
 		cur_idx = author_set[(authors['Name'][row][:-3])]
                 and1 += len(cur_idx)
 		dict_move(author_set, (authors['Name'][row][:-3]), authors['Name'][row])
                 authors['Name'][cur_idx] = authors['Name'][row]
-                print
-####################################################################################
+                print(####################################################################################
 ##################### "yz" at end 
 """ Refer back to backwards names, the logic of this block is very similar.  In this
-case we are looking for names ending with a mistaken "yz" """
+case we are looking for names ending with a mistaken "yz" """)
 authors['Last'] = authors['Name'].str.split().str[-1]
 authors['Firsts'] = authors['Name'].str.split().str[:-1]
 authors['Firsts'] = authors['Firsts'].str.join('.')
@@ -646,10 +641,10 @@ for row in authors.index:
                 authors['Name'][row], authors['Name'][row][:-2],
             if test > 150:
                 yz2 += 1
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY"
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY"
             else:
                 print
-                yz0 += 1
+                yz0 += 1)
                 dict_move(author_set, authors['Name'][row], authors['Name'][row][:-2], row)
 		authors['Name'][row] = (authors['Name'][row][:-2])
         else:
@@ -658,18 +653,17 @@ for row in authors.index:
 	    authors['Name'][row], authors['Name'][row][:-2], "Flipped",
             if test > 150:
                 yz2 += 1
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY"
-            else:
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY"
+            else:)
 		cur_idx = author_set[(authors['Name'][row][:-2])]
                 yz1 += len(cur_idx)
 		dict_move(author_set, (authors['Name'][row][:-2]), authors['Name'][row])
                 authors['Name'][cur_idx] = authors['Name'][row]
-                print
-print yz0,yz1,yz2
+                print(print yz0,yz1,yz2
 ####################################################################################
 ##################### "ab" at end 
 """ Refer back to backwards names, the logic of this block is very similar.  In this
-case we are looking for names ending with a mistaken "ab" """
+case we are looking for names ending with a mistaken "ab" """)
 authors['Last'] = authors['Name'].str.split().str[-1]
 authors['Firsts'] = authors['Name'].str.split().str[:-1]
 authors['Firsts'] = authors['Firsts'].str.join('.')
@@ -693,10 +687,10 @@ for row in authors.index:
                 authors['Name'][row], authors['Name'][row][:-2],
             if test > 150:
                 ab2 += 1
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY"
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY"
             else:
                 print
-                ab0 += 1
+                ab0 += 1)
                 dict_move(author_set, authors['Name'][row], authors['Name'][row][:-2], row)
 		authors['Name'][row] = (authors['Name'][row][:-2])
         else:
@@ -705,19 +699,18 @@ for row in authors.index:
 	    authors['Name'][row], authors['Name'][row][:-2], "Flipped",
             if test > 150:
                 ab2 += 1
-                print "XXXXXXXXXXXXXXXXXX TOO RISKY"
-            else:
+                print("XXXXXXXXXXXXXXXXXX TOO RISKY"
+            else:)
 		cur_idx = author_set[(authors['Name'][row][:-2])]
                 ab1 += len(cur_idx)
 		dict_move(author_set, (authors['Name'][row][:-2]), authors['Name'][row])
                 authors['Name'][cur_idx] = authors['Name'][row]
-                print
-print ab0,ab1,ab2
+                print(print ab0,ab1,ab2
 ####################################################################################
 ### Author Groups
 """ Author groups are made from co-authors of duplicated papers.  Here we run through
 each group and collect all the author names.  We then check each name against one 
-another and test for similarity, as defined by the levenstein string distance. That's
+another and test for similarity, as defined by the levenstein string distance. That's)
 then used as an input in a further test metrics (Refer back to backwards names)"""
 ag = pd.read_csv("author_groups.csv")
 ag['Name'] = ""
@@ -725,10 +718,10 @@ aid_grps = ag.groupby(['authorid'])
 #################
 for aid, group in aid_grps:
     if aid not in authors.index:
-        print aid
+        print(aid
         continue
     ag['Name'].ix[group.index] = authors['Name'][aid]
-# cut names below certain length
+# cut names below certain length)
 ag = ag[:][ag['Name'].str.len()>8]
 aids = sorted(set(ag['authorid'].values))
 aid_grps = ag.groupby(['authorid'])
@@ -777,10 +770,10 @@ for aid, group in aid_grps:
                                     dict_move(author_set, authors['Name'][aid], coa, aid)
                                     authors['Name'][aid] = coa
 				    if test > 0.01:
-                                        print aid, lev, name, "|", coa
+                                        print(aid, lev, name, "|", coa)
                                         print test, "\t", num_last, "|", int(num_n1), int(num_n2), "|", shorter, "\tsame last"
                                 else:
-                                    #print "\t\t\t", aid, lev, name, "|", coa
+                                    #print("\t\t\t", aid, lev, name, "|", coa)
                                     #print "\t\t\t", test, "\t", num_last, "|", int(num_n1), int(num_n2), "|", shorter
                                     continue
                 # same firsts
@@ -799,10 +792,10 @@ for aid, group in aid_grps:
                                 dict_move(author_set, authors['Name'][aid], coa, aid)
                                 authors['Name'][aid] = coa
 				if test > 0.01:
-                                    print aid, lev, name, "|", coa
+                                    print(aid, lev, name, "|", coa)
                                     print test, "\t", num_firsts, "|", int(num_n1), int(num_n2), "|", shorter, "\tsame firsts"
                             else:
-                                #print "\t\t\t", aid, lev, name, "|", coa
+                                #print("\t\t\t", aid, lev, name, "|", coa)
                                 #print "\t\t\t", test, "\t", num_firsts, "|", int(num_n1), int(num_n2), "|", shorter
 				continue
 ####################################################################################
@@ -851,11 +844,11 @@ for row in sorted(authors.index):
 		if row in affs.index:
 		    for row2 in authors.index[authors['Name']==long_name]:
                         if row2 in affs.index and util.check_affs(affs['Affiliation'][row], affs['Affiliation'][row2]):
-		            print row, row2, "XXXXXXXXXXXXXXXX"
+		            print(row, row2, "XXXXXXXXXXXXXXXX"
                             test = test / 100
 		if test < 25:
 		    count3FL += 1
-                    authors['Name'][authors['Name']==shrt_name] = long_name
+                    authors['Name'][authors['Name']==shrt_name] = long_name)
                     names = set(authors['Name'].values)
                     print "A", row, int(test), "|", count_last, "|", count_long, count_shrt, "|", count_first, count_firsts, count_mid, shrt_name, "\t\t", long_name
 	    else:
@@ -863,11 +856,11 @@ for row in sorted(authors.index):
 		if row in affs.index:
 		    for row2 in authors.index[authors['Name']==shrt_name]:
                         if row2 in affs.index and util.check_affs(affs['Affiliation'][row], affs['Affiliation'][row2]):
-		            print row, row2, "XXXXXXXXXXXXXXXX"
+		            print(row, row2, "XXXXXXXXXXXXXXXX"
                             test = test / 100
 		if test < 250:
 		    count3FS += 1
-                    authors['Name'][row] = shrt_name
+                    authors['Name'][row] = shrt_name)
                     names = set(authors['Name'].values)
                     print "B", row, int(test), "|", count_last, "|", count_long, count_shrt, "|", count_first, count_firsts, count_mid, long_name, "\t\t", shrt_name
 	# cut last name
@@ -889,11 +882,11 @@ for row in sorted(authors.index):
 	    if row in affs.index:
 	        for row2 in authors.index[authors['Name']==shrt_name]:
                     if row2 in affs.index and util.check_affs(affs['Affiliation'][row], affs['Affiliation'][row2]):
-		        print row, row2, "XXXXXXXXXXXXXXXX"
+		        print(row, row2, "XXXXXXXXXXXXXXXX"
                         test = test / 100
 	    if test < 100:
 	        count3LS += 1
-                authors['Name'][row] = shrt_name
+                authors['Name'][row] = shrt_name)
                 names = set(authors['Name'].values)
                 print "C", row, int(test), "|", count_firsts, count_first, "|", count_long, count_shrt, "|", count_last, count_mid, long_name, "\t\t", shrt_name
     elif len(authors['Name'][row].split()) == 4:
@@ -1302,8 +1295,8 @@ lasts = authors.groupby(['Last']).groups
 for name in lasts.keys():
     count = len(lasts[name])
     if count > 999:
-        print count, name # print the most common names
-    authors['last_freq'].ix[lasts[name]] = count
+        print(count, name # print the most common names
+    authors['last_freq'].ix[lasts[name]] = count)
 # Count frequency of "firsts" names (all of a name that is not the last name. George H W for example)
 authors['firsts_freq'] = 0
 firstss = authors.groupby(['Firsts']).groups
@@ -1316,10 +1309,10 @@ firsts = authors.groupby(['First']).groups
 for name in firsts.keys():
     count = len(firsts[name])
     if count > 999:
-        print count, name # print the most common names
+        print(count, name # print the most common names
     authors['first_freq'].ix[firsts[name]] = count
 # Count frequency of First Initials
-authors['fi_freq'] = 0
+authors['fi_freq'] = 0)
 fis = authors.groupby(['FI']).groups
 for name in fis.keys():
     count = len(fis[name])
@@ -1336,6 +1329,6 @@ nicks = authors.groupby(['Nicks']).groups
 for name in nicks.keys():
     count = len(nicks[name])
     if count > 999:
-        print count, name # print the most common names
-    authors['nicks_freq'].ix[nicks[name]] = count
+        print(count, name # print the most common names
+    authors['nicks_freq'].ix[nicks[name]] = count)
 authors.to_csv('freq54.csv') # store for later

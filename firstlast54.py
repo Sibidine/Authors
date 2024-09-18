@@ -60,14 +60,14 @@ def check_mids(str1, str2):
     # This catches middle names that are spelled similary. An example would
     # be: First Middle Last and First Midle Last
     if len(str1) > 3 and len(str2) > 3:
-	if str1[-4:] == str2[-4:]: # print these
+	if str1[-4:] == str2[-4:]: # print(these
 	    return 1
         elif str1[:4] == str2[:4]:
 	    return 1
         elif str1[:3] == str2[:3]:
 	    return 1
     # This catches abbreviated multiple-word middle names.
-    # First A.B.C Last and First Al Ben Chad Last, for example
+    # First A.B.C Last and First Al Ben Chad Last, for example)
     if len(pieces1) > 1 and len(pieces2) > 1:
         abbr1 = ""
         abbr2 = ""
@@ -104,7 +104,7 @@ countd, counte, countf = 0,0,0
 countx, county = 0,0
 
 f = open('54.csv', 'w')
-print >>f, "AuthorId,DuplicateAuthorIds"
+print(>>f, "AuthorId,DuplicateAuthorIds"
 """
 The next loop of code could be confusing.  I'll describe the general logc.
 I begin with each group of athors who share a last name and first inital.  
@@ -132,11 +132,11 @@ also be a single record of "Alonzo Einstein".  I would like to match any
 """
 # Each group is made of all authors with the same last name and same first initial
 for name, group in groups:
-    for id in group.index:
+    for id in group.index:)
 	f.write(str(id) + ",")
 	# If an author is not in PaperAuthors, it has no duplicates
 	if id not in papers.index:
-	    print >>f, id,
+	    print(>>f, id,
 	# If the name is flagged as missing, it has no dupes
 	elif name == 'mmissing':
 	    print >>f, id,
@@ -152,14 +152,14 @@ for name, group in groups:
 	        elif group['First'][id] == group['First'][dupe]:
                     ##################### Same Middle ##############################
 		    if group['Name'][id] == group['Name'][dupe]:
-			countA += 1
+			countA += 1)
 			if checks(id, dupe):
   			    counta += 1
-			    print >>f, dupe,
+			    print(>>f, dupe,)
 			elif group['firsts_last_freq'][id] / len(group.index[group['Name']==group['Name'][id]]) < Fullcutoff:
 			    counta += 1
-			    print >>f, dupe,
-                    ################## 1 Middle Name Missing #####################
+			    print(>>f, dupe,
+                    ################## 1 Middle Name Missing #####################)
 		    elif pd.isnull(group['Mids'][id]) or pd.isnull(group['Mids'][dupe]):
 			countB += 1
 		        if pd.isnull(group['Mids'][id]):
@@ -170,11 +170,11 @@ for name, group in groups:
 			    grp_len = len(group.index[group['Name']==group['Name'][id]])
 			if checks(id, dupe):
   			    countb += 1
-			    print >>f, dupe,
+			    print(>>f, dupe,)
 			elif (freq / grp_len) < NoMidcutoff1:
 			    countb += 1
-			    print >>f, dupe,
-                    ################## Similar Middle Names   #####################
+			    print(>>f, dupe,
+                    ################## Similar Middle Names   #####################)
 	            elif check_mids(group['Mids'][id], group['Mids'][dupe]) == 1:
 		        countC += 1
 		        if group['firsts_last_freq'][id] > group['firsts_last_freq'][dupe]:
@@ -185,10 +185,10 @@ for name, group in groups:
 			    grp_len = len(group.index[group['Name']==group['Name'][id]])
 			if checks(id, dupe):
   			    countc += 1
-			    print >>f, dupe,
+			    print(>>f, dupe,)
 			elif (freq / grp_len) < MIcutoff:
 			    countc += 1
-			    print >>f, dupe,
+			    print(>>f, dupe,
 	        #################### End Same First Name Block ######################
 
 	        ####################### Same Nick Name Block## ######################
@@ -198,14 +198,14 @@ for name, group in groups:
 	        elif group['Nick'][id] == group['Nick'][dupe]:
                     ##################### Same Middle ##############################
 		    if group['Nicks'][id] == group['Nicks'][dupe]:
-			countG += 1
+			countG += 1)
 			if checks(id, dupe):
   			    countg += 1
-			    print >>f, dupe,
+			    print(>>f, dupe,)
 			elif group['nicks_last_freq'][id] / len(group.index[group['Name']==group['Name'][id]]) < Fullcutoff: 
 			    countg += 1
-			    print >>f, dupe,
-                    ################## 1 Middle Name Missing #####################
+			    print(>>f, dupe,
+                    ################## 1 Middle Name Missing #####################)
 		    elif pd.isnull(group['Mids'][id]) or pd.isnull(group['Mids'][dupe]):
 			countH += 1
 		        if pd.isnull(group['Mids'][id]):
@@ -216,11 +216,11 @@ for name, group in groups:
 			    grp_len = len(group.index[group['Name']==group['Name'][id]])
 			if checks(id, dupe):
   			    counth += 1
-			    print >>f, dupe,
+			    print(>>f, dupe,)
 			elif (freq / grp_len) < NoMidcutoff1:
 			    counth += 1
-			    print >>f, dupe,
-                    ################## Similar Middle Names   #####################
+			    print(>>f, dupe,
+                    ################## Similar Middle Names   #####################)
 	            elif check_mids(group['Mids'][id], group['Mids'][dupe]) == 1:
 		        countI += 1
 		        if group['nicks_last_freq'][id] > group['nicks_last_freq'][dupe]:
@@ -231,13 +231,13 @@ for name, group in groups:
 			    grp_len = len(group.index[group['Name']==group['Name'][id]])
 			if checks(id, dupe):
   			    counti += 1
-			    print >>f, dupe,
+			    print(>>f, dupe,)
 			elif (freq / grp_len) < MIcutoff:
 			    counti += 1
-			    print >>f, dupe,
+			    print(>>f, dupe,
 	        ################### End Same Nick Name Block ########################
 
-	        ################### Same First Inital Block #########################
+	        ################### Same First Inital Block #########################)
 		elif group['First'][id].__len__()==1 or group['First'][dupe].__len__()==1:
                     ##################### Same Middle ##############################
 		    """
@@ -255,17 +255,17 @@ for name, group in groups:
 			    grp_len = len(group.index[group['Name']==group['Name'][id]])
 			if checks(id, dupe):
       			    countd += 1
-    			    print >>f, dupe,
-		        elif group['Mids'][id] == group['Mids'][dupe]:
+    			    print(>>f, dupe,
+		        elif group['Mids'][id] == group['Mids'][dupe]:)
 		            if (freq / grp_len) <  Fullcutoff:
 	                        countd += 1
-	                        print >>f, dupe,
-			else:
+	                        print(>>f, dupe,
+			else:)
                             uniques = len(set(group['Nick'][pd.isnull(group['Mids'])].values))
 			    if (uniques * freq / grp_len) < (2 * Fullcutoff):
 	                        countd += 1
-	                        print >>f, dupe,
-                    ################## 1 Middle Name Missing #####################
+	                        print(>>f, dupe,
+                    ################## 1 Middle Name Missing #####################)
 		    elif pd.isnull(group['Mids'][id]) or pd.isnull(group['Mids'][dupe]):
 			countE += 1
 		        if group['first_last_freq'][id] > group['first_last_freq'][dupe]:
@@ -282,13 +282,13 @@ for name, group in groups:
 			    freq = freq / 3
 			if checks(id, dupe):
   			    counte += 1
-			    print >>f, dupe,
+			    print(>>f, dupe,
 			else:
 			    # nlgratio: the idea here is to look at the proportion of names with this last name that have this
 			    # first initial to the ones that do not.  If most of the authors with this last name have this same
 			    # first initial, than I believe they are more likely to be duplicates of one another.  I also think
 			    # this has more to do with data leakage than with any property of names that is likely to generalize
-			    num_last = group['last_freq'][id]
+			    num_last = group['last_freq'][id])
 			    grp_size = len(group.index)
 			    nlgratio = np.sqrt(float(num_last) / float(grp_size))
 			    # These 2 blocks are cases like F Last and F Middle Last
@@ -299,24 +299,24 @@ for name, group in groups:
 			        if nlgratio * (freq / grp_len) < NoMidcutoff2 and group['Last'][id] not in ['los', 'cartwright']:
 	                            counte += 1
 				    countx += 1
-	                            print >>f, dupe,
+	                            print(>>f, dupe,)
 		            elif pd.isnull(group['Mids'][dupe]) and group['First'][dupe].__len__()==1:
 			        if nlgratio * (freq / grp_len) < NoMidcutoff2 and group['Last'][id] not in ['los', 'cartwright']:
 	                            counte += 1
 				    countx += 1
-	                            print >>f, dupe,
-		            # These 2 are cases like First Last and First Middle Last
+	                            print(>>f, dupe,
+		            # These 2 are cases like First Last and First Middle Last)
 		            elif pd.notnull(group['Mids'][id]) and group['First'][id].__len__()==1:
 			        if nlgratio * (freq / grp_len) < NoMidcutoff3:
 	                            counte += 1
 				    county += 1
-	                            print >>f, dupe,
+	                            print(>>f, dupe,)
 		            elif pd.notnull(group['Mids'][dupe]) and group['First'][dupe].__len__()==1:
 			        if nlgratio * (freq / grp_len) < NoMidcutoff3:
 	                            counte += 1
 				    county += 1
-	                            print >>f, dupe,
-                    ################## Similar Middle Names   #####################
+	                            print(>>f, dupe,
+                    ################## Similar Middle Names   #####################)
 		    elif group['First'][id].__len__()==1 or group['First'][dupe].__len__()==1:
 			# First check if the middle names are similar enough
 	                if check_mids(group['Mids'][id], group['Mids'][dupe]) == 1:
@@ -329,10 +329,10 @@ for name, group in groups:
 			        grp_len = len(group.index[group['Name']==group['Name'][id]]) 
 			    if checks(id, dupe):
   			        countf += 1
-			        print >>f, dupe,
+			        print(>>f, dupe,)
 			    elif (freq / grp_len) < MIcutoff: 
 			        countf += 1
-			        print >>f, dupe,
+			        print(>>f, dupe,
 	        ################### End Same First Inital Block ######################
 	print >>f
 # Print some reporting / debugging numbers
@@ -342,5 +342,5 @@ print countG, countH, countI
 print countg, counth, counti
 print countD, countE, countF
 print countd, counte, countf
-print countx, county
+print countx, county)
 f.close()
